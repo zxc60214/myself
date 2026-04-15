@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>朱嘉鵬 Resume</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Condensed:wght@700;800&display=swap');
+
+  :root {
+    --bg-color: #c9c3b1;
+    --text-color: #1a1a1a;
+    --font-sans: 'Noto Sans TC', sans-serif;
+    --font-condensed: 'Roboto Condensed', sans-serif;
+  }
+
+  body {
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+    font-family: var(--font-sans);
+    color: var(--text-color);
+  }
+
+  .resume-container {
+    background-color: var(--bg-color);
+    width: 100%;
+    max-width: 950px;
+    padding: 60px 50px 50px 50px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+  }
+
+  /* ==================== TYPOGRAPHY ==================== */
+  .massive-title {
+    font-family: var(--font-condensed);
+    font-size: 115px;
+    font-weight: 800;
+    line-height: 0.8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+  }
+
+  .section-label {
+    font-size: 14px;
+    font-family: var(--font-condensed);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  /* ==================== LEFT COLUMN ==================== */
+  .left-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .photo-box {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background-color: #000;
+    margin-bottom: 50px;
+    overflow: hidden;
+    filter: sepia(0.3) grayscale(0.2) contrast(1.1);
+  }
+
+  .photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .list-block {
+    display: flex;
+    margin-bottom: 40px;
+  }
+  
+  .list-label {
+    width: 80px;
+    font-size: 13px;
+    font-family: var(--font-condensed);
+    letter-spacing: 0.5px;
+  }
+
+  .list-content {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  
+  .list-item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: auto;
+  }
+
+  .tool-pill {
+    border: 1.5px solid var(--text-color);
+    border-radius: 40px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-family: var(--font-condensed);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .tool-pill.filled {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+  }
+
+  /* ==================== RIGHT COLUMN ==================== */
+  .right-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tags-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 60px;
+    font-family: var(--font-condensed);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .tag-oval {
+    border: 1px solid var(--text-color);
+    border-radius: 50px;
+    padding: 4px 18px;
+  }
+
+  .bio-text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    font-weight: 700;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .exp-entry {
+    margin-bottom: 40px;
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    font-family: var(--font-condensed);
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .exp-company {
+    font-size: 16px;
+  }
+
+  .exp-date {
+    text-align: right;
+    line-height: 1.3;
+  }
+
+  .exp-role {
+    font-family: var(--font-condensed);
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .exp-desc {
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 500;
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* ==================== FOOTER AREA ==================== */
+  .bottom-name-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    margin-top: 60px;
+    align-items: end;
+  }
+
+  .bottom-info-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    margin-top: 20px;
+    font-family: var(--font-condensed);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .info-left, .info-right {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .info-right div {
+    display: flex;
+    flex-direction: column;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="resume-container">
+  
+  <div class="left-col">
+    <div class="photo-box">
+      <img src="my photo.png" alt="Profile Photo">
+    </div>
+
+    <div class="list-block">
+      <div class="list-label">EXPERTISE</div>
+      <div class="list-content">
+        <div class="list-item"><span>商業影音製作流程</span> <span></span></div>
+        <div class="list-item"><span>混合式 AI 特效製作</span> <span></span></div>
+        <div class="list-item"><span>品牌故事影像敘事</span> <span></span></div>
+        <div class="list-item"><span>影片情緒節奏掌控</span> <span></span></div>
+      </div>
+    </div>
+
+    <div class="list-block">
+      <div class="list-label">FOCUS</div>
+      <div class="list-content">
+        <div class="list-item"><span>短影音策略企劃</span> <span></span></div>
+        <div class="list-item"><span>企業培訓與教學</span> <span></span></div>
+        <div class="list-item"><span>跨平台內容增長</span> <span></span></div>
+      </div>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-pill filled">PREMIERE PRO</div>
+      <div class="tool-pill">DAVINCI RESOLVE</div>
+      <div class="tool-pill filled">AFTER EFFECTS</div>
+      <div class="tool-pill">剪映</div>
+      <div class="tool-pill">WEAVE / TAPNOW</div>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <h1 class="massive-title" style="margin-left: -5px;">RESUME</h1>
+    
+    <div class="tags-row">
+      <div class="tag-oval">ZACK CHU</div>
+      <div>VIDEO DIRECTOR & AI STRATEGIST</div>
+    </div>
+
+    <p class="bio-text">
+      深耕影音製作，專注將商業邏輯轉化為具傳播力之影像。整合專業實拍與 AI 生成工作流，大幅提升效能。現任影音主管兼企業講師，致力於團隊賦能與技術標準化。
+    </p>
+
+    <div class="exp-entry">
+      <div class="exp-header">
+        <span class="exp-company">鍠廷行銷企業</span>
+        <span class="exp-date">AUG 2024<br>/ PRESENT</span>
+      </div>
+      <div class="exp-role">→ 影音部主管 HEAD OF VIDEO</div>
+      <p class="exp-desc">
+        統籌多品牌影音企劃，帶領剪輯團隊執行產出。擔任技術指導與品質監管，確保產出符合商業目標。導入混合式 AI 輔助工作流，優化製程效率達 40%，有效提升內部團隊即戰力與商業視覺產能。
+      </p>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-header">
+        <span class="exp-company">羅布森股份有限公司</span>
+        <span class="exp-date">JAN 2025<br>/ PRESENT</span>
+      </div>
+      <div class="exp-role">→ 企業培訓講師 CORPORATE TRAINER</div>
+      <p class="exp-desc">
+        負責短影音製作與 AI 應用培訓。將實戰經驗轉化為系統化教材，開發標準化訓練課程，協助企業內部行銷團隊從零建構影音製作與策略分析之完整能力。
+      </p>
+    </div>
+
+    <div class="exp-entry" style="margin-bottom: 0;">
+      <div class="exp-header">
+        <span class="exp-company">商業品牌視覺整合</span>
+        <span class="exp-date">PROJECTS<br>/ SELECTED</span>
+      </div>
+      <div class="exp-role">→ 專案實績 COMMERCIAL BRANDING</div>
+      <p class="exp-desc">
+        執行服飾與家居品牌之「形象宣傳片＋社群短影音」雙軌產出模型。並將 Podcast 內容轉譯為具視覺記憶點的短影音，結合高效剪輯策略，擴展跨平台傳播效益並實質強化品牌識別轉換力。
+      </p>
+    </div>
+
+  </div>
+
+  <div style="grid-column: 1 / -1;">
+    <div class="bottom-name-row">
+      <h1 class="massive-title">ZHU</h1>
+      <h1 class="massive-title">JIAPENG</h1>
+    </div>
+    <div class="bottom-info-row">
+      <div class="info-left">
+        <span>T. +886 933 230 805</span>
+        <span>IG. @_87PIG</span>
+      </div>
+      <div class="info-right">
+        <div>
+          <span>GODLIKE624@GMAIL.COM</span>
+          <span>LINE: OVER-ELEMENTAL</span>
+        </div>
+        <div style="text-align: right;">
+          <span>KAOHSIUNG CITY</span>
+          <span>TAIWAN, R.O.C.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
