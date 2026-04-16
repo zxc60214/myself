@@ -27,7 +27,7 @@
     overflow-x: hidden;
   }
 
-  /* ==================== FLUID BACKGROUND ==================== */
+  /* ==================== SVG FLUID BACKGROUND ==================== */
   .fluid-bg {
     position: fixed;
     top: 0;
@@ -36,40 +36,20 @@
     height: 100vh;
     z-index: -1;
     background: #111; 
-    overflow: hidden;
   }
 
-  .fluid-blob {
+  /* 核心：使用 SVG 濾鏡生成流體 */
+  .fluid-bg::before {
+    content: "";
     position: absolute;
-    width: 150vw;
-    height: 150vw;
-    top: -25vw;
-    left: -25vw;
-    background: radial-gradient(circle, rgba(201, 195, 177, 0.4) 0%, rgba(180, 170, 150, 0.1) 40%, transparent 70%);
-    animation: flow 20s infinite linear;
-    transform-origin: center center;
-    filter: blur(40px);
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(201, 195, 177, 0.4) 0%, rgba(180, 170, 150, 0.1) 40%, transparent 70%),
+                radial-gradient(circle at 80% 20%, rgba(160, 155, 140, 0.3) 0%, transparent 50%);
+    filter: url(#fluid-filter); /* 呼叫下方的 SVG 濾鏡 */
     opacity: 0.8;
-  }
-  
-  .fluid-blob:nth-child(2) {
-    background: radial-gradient(circle, rgba(160, 155, 140, 0.3) 0%, rgba(140, 130, 110, 0) 60%, transparent 80%);
-    animation: flow-reverse 25s infinite linear;
-    top: -10vw;
-    left: -40vw;
-  }
-
-  @keyframes flow {
-    0% { transform: rotate(0deg) scale(1) translate(0, 0); }
-    33% { transform: rotate(120deg) scale(1.1) translate(5%, 2%); }
-    66% { transform: rotate(240deg) scale(0.9) translate(-2%, 5%); }
-    100% { transform: rotate(360deg) scale(1) translate(0, 0); }
-  }
-
-  @keyframes flow-reverse {
-    0% { transform: rotate(360deg) scale(0.9) translate(0, 0); }
-    50% { transform: rotate(180deg) scale(1.1) translate(-5%, -5%); }
-    100% { transform: rotate(0deg) scale(0.9) translate(0, 0); }
   }
 
   /* ==================== RESUME CONTAINER ==================== */
@@ -87,6 +67,7 @@
     z-index: 10;
   }
 
+  /* (保持原有的排版 CSS) */
   .massive-title { font-family: var(--font-condensed); font-size: 115px; font-weight: 800; line-height: 0.8; margin: 0; text-transform: uppercase; letter-spacing: -2px; }
   .section-label { font-size: 14px; font-family: var(--font-condensed); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
   .left-col { display: flex; flex-direction: column; }
@@ -117,10 +98,16 @@
 </head>
 <body>
 
-<div class="fluid-bg">
-  <div class="fluid-blob"></div>
-  <div class="fluid-blob"></div>
-</div>
+<svg width="0" height="0" style="position:absolute;">
+  <filter id="fluid-filter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise">
+      <animate attributeName="baseFrequency" values="0.015;0.01;0.015" dur="30s" repeatCount="indefinite" />
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="100" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+</svg>
+
+<div class="fluid-bg"></div>
 
 <audio id="bg-audio" autoplay loop>
   <source src="Amit Sagie - Chariot.mp3" type="audio/mpeg">
@@ -176,7 +163,7 @@
     <div class="exp-entry">
       <div class="exp-header">
         <span class="exp-company">鍠廷行銷企業</span>
-        <span class="exp-date">AUG 2022<br>/ PRESENT</span>
+        <span class="exp-date">AUG 2021<br>/ PRESENT</span>
       </div>
       <div class="exp-role">→ 影音部主管 HEAD OF VIDEO</div>
       <p class="exp-desc">
@@ -237,7 +224,7 @@
   document.body.addEventListener('click', function() {
     const audio = document.getElementById('bg-audio');
     if (audio.paused) {
-      audio.play().catch(e => console.log("等待使用者互動"));
+      audio.play().catch(e => console.log("等待互動"));
     }
   }, { once: true });
 </script>
