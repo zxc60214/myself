@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZACK CHU | Resume</title>
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Condensed:wght@700;800&display=swap');
@@ -29,10 +29,9 @@
     padding: 40px 20px;
     font-family: var(--font-sans);
     color: var(--text-color);
-    background-color: #111; /* 靜態深色背景 */
+    background-color: #111; 
   }
 
-  /* 移除流體背景，回歸簡潔靜態容器 */
   .resume-container {
     background-color: var(--bg-color); 
     width: 100%;
@@ -41,7 +40,7 @@
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: 1fr 1.5fr; /* 預設電腦版雙欄 */
+    grid-template-columns: 1fr 1.5fr; 
     gap: 60px;
   }
 
@@ -75,11 +74,11 @@
   a { color: var(--text-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s ease; }
   a:hover { border-bottom: 1px solid var(--text-color); }
 
-  /* ==================== 手機版 RWD 自適應排版 ==================== */
+  /* 手機版 RWD 自適應排版 */
   @media (max-width: 768px) {
     body { padding: 0; }
     .resume-container {
-      grid-template-columns: 1fr; /* 切換為單欄 */
+      grid-template-columns: 1fr;
       gap: 40px;
       padding: 40px 25px;
     }
@@ -179,8 +178,8 @@
     </div>
     <div class="bottom-info-row">
       <div class="info-left">
-        <span>T. +886 933 230 805</span>
-        <span>IG. <a href="https://instagram.com/_87pig" target="_blank">@_87PIG</a></span>
+        <span>T. <a href="tel:+886933230805">+886 933 230 805</a></span>
+        <span>IG. <a href="https://www.instagram.com/87pig_/" target="_blank">@87PIG_</a></span>
       </div>
       <div class="info-right">
         <div>
