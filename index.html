@@ -40,7 +40,56 @@
     padding: 40px 20px;
     font-family: var(--font-sans);
     color: var(--text-color);
-    background-color: #111;
+    background-color: #0e0e10;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Ambient 流體背景 — 模擬 Apple 高階質感 */
+  .ambient-bg {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0.32;
+    will-change: transform;
+  }
+  .orb-1 {
+    width: 520px; height: 520px;
+    background: #c49960;
+    top: -8%; left: -10%;
+    animation: orbDrift1 24s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 620px; height: 620px;
+    background: #6a4e6f;
+    bottom: -12%; right: -8%;
+    animation: orbDrift2 30s ease-in-out infinite alternate;
+  }
+  .orb-3 {
+    width: 440px; height: 440px;
+    background: #4a6b75;
+    top: 45%; left: 55%;
+    opacity: 0.22;
+    animation: orbDrift3 26s ease-in-out infinite alternate;
+  }
+  @keyframes orbDrift1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(180px, 240px) scale(1.15); }
+  }
+  @keyframes orbDrift2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-220px, -180px) scale(1.1); }
+  }
+  @keyframes orbDrift3 {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-140px, 120px) scale(1.2); }
   }
 
   .resume-container {
@@ -48,11 +97,12 @@
     width: 100%;
     max-width: 950px;
     padding: 60px 50px 50px 50px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.55);
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 60px;
     position: relative;
+    z-index: 1;
   }
 
   .massive-title {
@@ -285,6 +335,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
+    .orb { animation: none !important; }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
@@ -305,6 +356,12 @@
     .info-left, .info-right { flex-direction: column; gap: 5px; }
     .info-right > div { text-align: left !important; gap: 5px; }
     .audio-toggle { bottom: 16px; right: 16px; width: 44px; height: 44px; }
+
+    /* 手機版：縮小光暈並降低模糊半徑，減輕 GPU 負擔 */
+    .orb { filter: blur(70px); opacity: 0.28; }
+    .orb-1 { width: 340px; height: 340px; }
+    .orb-2 { width: 400px; height: 400px; }
+    .orb-3 { width: 300px; height: 300px; }
 
     /* SELECTED WORKS 手機版 */
     .works-section { padding-top: 30px; margin-top: 10px; }
@@ -327,7 +384,15 @@
 </head>
 <body>
 
+<!-- Ambient 流體背景光暈 -->
+<div class="ambient-bg" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
 <audio id="bg-audio" loop preload="none">
+  <source src="Amit%20Sagie%20-%20Chariot.mp3" type="audio/mpeg">
   <source src="Amit Sagie - Chariot.mp3" type="audio/mpeg">
 </audio>
 
@@ -448,7 +513,7 @@
           <h3 class="work-title">短影音系列製作</h3>
           <p class="work-desc">將音頻內容轉化為視覺化短影音,擴大跨平台傳播效益</p>
         </div>
-        <a class="work-link" href="https://drive.google.com/file/d/1_nXRDYP3g47VEske-KP3oRr_Q0Sq_6p1/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="觀看 Podcast 短影音作品">
+        <a class="work-link" href="https://drive.google.com/drive/u/0/folders/1ZnefJqVAtYGHr3P2hInFHrdzoNwpc4iu" target="_blank" rel="noopener noreferrer" aria-label="觀看 Podcast 短影音作品">
           <span>觀看</span><span class="arrow" aria-hidden="true">→</span>
         </a>
       </li>
@@ -537,12 +602,18 @@
         audio.play().then(() => {
           btn.classList.add('is-playing');
           btn.setAttribute('aria-label', '暫停背景音樂');
-        }).catch(err => console.log('音樂播放失敗：', err));
+        }).catch(err => {
+          console.warn('音樂播放失敗，請確認 MP3 檔案與 index.html 在同一層目錄：', err);
+        });
       } else {
         audio.pause();
         btn.classList.remove('is-playing');
         btn.setAttribute('aria-label', '播放背景音樂');
       }
+    });
+
+    audio.addEventListener('error', function () {
+      console.warn('音樂檔載入失敗。請確認：\n1. 檔名是否為「Amit Sagie - Chariot.mp3」\n2. 檔案是否與 index.html 放在同一目錄');
     });
 
     audio.addEventListener('ended', function () {
