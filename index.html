@@ -13,8 +13,8 @@
     --font-condensed: 'Roboto Condensed', sans-serif;
   }
 
+  /* 移除 body 的背景色，讓底層流體透出來 */
   body {
-    background-color: #111;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,39 +23,72 @@
     padding: 40px 20px;
     font-family: var(--font-sans);
     color: var(--text-color);
-    position: relative;
     overflow-x: hidden;
   }
 
-  /* ==================== SVG FLUID BACKGROUND ==================== */
+  /* ==================== 終極流體背景 (Blurred Blobs) ==================== */
   .fluid-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
+    background-color: #111; /* 最底層的深邃黑 */
     z-index: -1;
-    background: #111; 
+    overflow: hidden;
   }
 
-  /* 核心：使用 SVG 濾鏡生成流體 */
-  .fluid-bg::before {
-    content: "";
+  /* 共用色塊屬性：加上極大的模糊值來製造液體感 */
+  .blob {
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(201, 195, 177, 0.4) 0%, rgba(180, 170, 150, 0.1) 40%, transparent 70%),
-                radial-gradient(circle at 80% 20%, rgba(160, 155, 140, 0.3) 0%, transparent 50%);
-    filter: url(#fluid-filter); /* 呼叫下方的 SVG 濾鏡 */
-    opacity: 0.8;
+    border-radius: 50%;
+    filter: blur(90px); 
+    opacity: 0.45;
   }
 
-  /* ==================== RESUME CONTAINER ==================== */
+  /* 主沙色色塊 */
+  .blob-1 {
+    width: 70vw; height: 70vw;
+    background: #c9c3b1; 
+    top: -20%; left: -10%;
+    animation: float1 20s infinite alternate ease-in-out;
+  }
+
+  /* 深咖啡色塊 */
+  .blob-2 {
+    width: 60vw; height: 60vw;
+    background: #6b6352; 
+    bottom: -20%; right: -10%;
+    animation: float2 25s infinite alternate-reverse ease-in-out;
+  }
+
+  /* 輔助提亮色塊 */
+  .blob-3 {
+    width: 50vw; height: 50vw;
+    background: #a8a08c; 
+    top: 20%; left: 30%;
+    animation: float3 28s infinite alternate ease-in-out;
+  }
+
+  /* 流體漂浮動畫關鍵影格 */
+  @keyframes float1 { 
+    0% { transform: translate(0, 0) scale(1); } 
+    100% { transform: translate(20%, 15%) scale(1.1); } 
+  }
+  @keyframes float2 { 
+    0% { transform: translate(0, 0) scale(1); } 
+    100% { transform: translate(-20%, -15%) scale(1.2); } 
+  }
+  @keyframes float3 { 
+    0% { transform: translate(0, 0) scale(1); } 
+    100% { transform: translate(-10%, 20%) scale(0.9); } 
+  }
+
+  /* ==================== 履歷主體 ==================== */
   .resume-container {
-    background-color: rgba(201, 195, 177, 0.95);
-    backdrop-filter: blur(10px);
+    background-color: rgba(201, 195, 177, 0.93); /* 毛玻璃透明度 */
+    backdrop-filter: blur(15px); /* 讓背景流體透射上來 */
+    -webkit-backdrop-filter: blur(15px); /* 針對 Mac Safari 強化支援 */
     width: 100%;
     max-width: 950px;
     padding: 60px 50px 50px 50px;
@@ -64,10 +97,11 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 60px;
+    position: relative; /* 確保浮在背景之上 */
     z-index: 10;
   }
 
-  /* (保持原有的排版 CSS) */
+  /* 以下維持原樣 */
   .massive-title { font-family: var(--font-condensed); font-size: 115px; font-weight: 800; line-height: 0.8; margin: 0; text-transform: uppercase; letter-spacing: -2px; }
   .section-label { font-size: 14px; font-family: var(--font-condensed); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
   .left-col { display: flex; flex-direction: column; }
@@ -98,16 +132,11 @@
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute;">
-  <filter id="fluid-filter">
-    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise">
-      <animate attributeName="baseFrequency" values="0.015;0.01;0.015" dur="30s" repeatCount="indefinite" />
-    </feTurbulence>
-    <feDisplacementMap in="SourceGraphic" in2="noise" scale="100" xChannelSelector="R" yChannelSelector="G" />
-  </filter>
-</svg>
-
-<div class="fluid-bg"></div>
+<div class="fluid-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
 
 <audio id="bg-audio" autoplay loop>
   <source src="Amit Sagie - Chariot.mp3" type="audio/mpeg">
@@ -152,7 +181,7 @@
     <h1 class="massive-title" style="margin-left: -5px;">RESUME</h1>
     
     <div class="tags-row">
-      <div class="tag-oval">ZACK</div>
+      <div class="tag-oval">ZACK CHU</div>
       <div>VIDEO DIRECTOR & AI STRATEGIST</div>
     </div>
 
@@ -197,8 +226,8 @@
 
   <div style="grid-column: 1 / -1;">
     <div class="bottom-name-row">
-      <h1 class="massive-title">ZACK</h1>
       <h1 class="massive-title">CHU</h1>
+      <h1 class="massive-title">JIAPENG</h1>
     </div>
     <div class="bottom-info-row">
       <div class="info-left">
