@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>朱嘉鵬 Resume</title>
+<title>ZACK CHU | Resume</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Condensed:wght@700;800&display=swap');
 
@@ -13,7 +13,6 @@
     --font-condensed: 'Roboto Condensed', sans-serif;
   }
 
-  /* 移除 body 的背景色，讓底層流體透出來 */
   body {
     display: flex;
     justify-content: center;
@@ -24,71 +23,41 @@
     font-family: var(--font-sans);
     color: var(--text-color);
     overflow-x: hidden;
+    background-color: #111;
   }
 
-  /* ==================== 終極流體背景 (Blurred Blobs) ==================== */
+  /* ==================== 穩定型：網格流體背景 ==================== */
   .fluid-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #111; /* 最底層的深邃黑 */
     z-index: -1;
-    overflow: hidden;
+    /* 使用多層徑向漸層堆疊，透過移動背景尺寸產生流體感，不使用高耗能 filter */
+    background: radial-gradient(at 0% 0%, rgba(201, 195, 177, 0.15) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, rgba(107, 99, 82, 0.2) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(168, 160, 140, 0.15) 0, transparent 50%), 
+                radial-gradient(at 0% 50%, rgba(107, 99, 82, 0.2) 0, transparent 50%), 
+                radial-gradient(at 100% 50%, rgba(201, 195, 177, 0.1) 0, transparent 50%), 
+                radial-gradient(at 0% 100%, rgba(201, 195, 177, 0.15) 0, transparent 50%), 
+                radial-gradient(at 50% 100%, rgba(168, 160, 140, 0.2) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(107, 99, 82, 0.15) 0, transparent 50%);
+    background-size: 200% 200%;
+    animation: liquidFlow 15s ease infinite alternate;
   }
 
-  /* 共用色塊屬性：加上極大的模糊值來製造液體感 */
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px); 
-    opacity: 0.45;
-  }
-
-  /* 主沙色色塊 */
-  .blob-1 {
-    width: 70vw; height: 70vw;
-    background: #c9c3b1; 
-    top: -20%; left: -10%;
-    animation: float1 20s infinite alternate ease-in-out;
-  }
-
-  /* 深咖啡色塊 */
-  .blob-2 {
-    width: 60vw; height: 60vw;
-    background: #6b6352; 
-    bottom: -20%; right: -10%;
-    animation: float2 25s infinite alternate-reverse ease-in-out;
-  }
-
-  /* 輔助提亮色塊 */
-  .blob-3 {
-    width: 50vw; height: 50vw;
-    background: #a8a08c; 
-    top: 20%; left: 30%;
-    animation: float3 28s infinite alternate ease-in-out;
-  }
-
-  /* 流體漂浮動畫關鍵影格 */
-  @keyframes float1 { 
-    0% { transform: translate(0, 0) scale(1); } 
-    100% { transform: translate(20%, 15%) scale(1.1); } 
-  }
-  @keyframes float2 { 
-    0% { transform: translate(0, 0) scale(1); } 
-    100% { transform: translate(-20%, -15%) scale(1.2); } 
-  }
-  @keyframes float3 { 
-    0% { transform: translate(0, 0) scale(1); } 
-    100% { transform: translate(-10%, 20%) scale(0.9); } 
+  @keyframes liquidFlow {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 50% 0%; }
   }
 
   /* ==================== 履歷主體 ==================== */
   .resume-container {
-    background-color: rgba(201, 195, 177, 0.93); /* 毛玻璃透明度 */
-    backdrop-filter: blur(15px); /* 讓背景流體透射上來 */
-    -webkit-backdrop-filter: blur(15px); /* 針對 Mac Safari 強化支援 */
+    background-color: rgba(201, 195, 177, 0.94); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     width: 100%;
     max-width: 950px;
     padding: 60px 50px 50px 50px;
@@ -97,13 +66,11 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 60px;
-    position: relative; /* 確保浮在背景之上 */
     z-index: 10;
   }
 
-  /* 以下維持原樣 */
+  /* 排版設定 */
   .massive-title { font-family: var(--font-condensed); font-size: 115px; font-weight: 800; line-height: 0.8; margin: 0; text-transform: uppercase; letter-spacing: -2px; }
-  .section-label { font-size: 14px; font-family: var(--font-condensed); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
   .left-col { display: flex; flex-direction: column; }
   .photo-box { width: 100%; aspect-ratio: 3 / 4; background-color: #000; margin-bottom: 50px; overflow: hidden; filter: sepia(0.3) grayscale(0.2) contrast(1.1); }
   .photo-box img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
@@ -132,11 +99,7 @@
 </head>
 <body>
 
-<div class="fluid-bg">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-</div>
+<div class="fluid-bg"></div>
 
 <audio id="bg-audio" autoplay loop>
   <source src="Amit Sagie - Chariot.mp3" type="audio/mpeg">
@@ -146,25 +109,25 @@
   
   <div class="left-col">
     <div class="photo-box">
-      <img src="my photo.png" alt="Profile Photo">
+      <img src="my photo.png" alt="Zack Chu Profile">
     </div>
 
     <div class="list-block">
       <div class="list-label">EXPERTISE</div>
       <div class="list-content">
-        <div class="list-item"><span>商業影音製作流程</span> <span></span></div>
-        <div class="list-item"><span>混合式 AI 特效製作</span> <span></span></div>
-        <div class="list-item"><span>品牌故事影像敘事</span> <span></span></div>
-        <div class="list-item"><span>影片情緒節奏掌控</span> <span></span></div>
+        <div class="list-item"><span>商業影音製作流程</span></div>
+        <div class="list-item"><span>混合式 AI 特效製作</span></div>
+        <div class="list-item"><span>品牌故事影像敘事</span></div>
+        <div class="list-item"><span>影片情緒節奏掌控</span></div>
       </div>
     </div>
 
     <div class="list-block">
       <div class="list-label">FOCUS</div>
       <div class="list-content">
-        <div class="list-item"><span>短影音策略企劃</span> <span></span></div>
-        <div class="list-item"><span>企業培訓與教學</span> <span></span></div>
-        <div class="list-item"><span>跨平台內容增長</span> <span></span></div>
+        <div class="list-item"><span>短影音策略企劃</span></div>
+        <div class="list-item"><span>企業培訓與教學</span></div>
+        <div class="list-item"><span>跨平台內容增長</span></div>
       </div>
     </div>
 
@@ -192,7 +155,7 @@
     <div class="exp-entry">
       <div class="exp-header">
         <span class="exp-company">鍠廷行銷企業</span>
-        <span class="exp-date">AUG 2021<br>/ PRESENT</span>
+        <span class="exp-date">AUG 2022<br>/ PRESENT</span>
       </div>
       <div class="exp-role">→ 影音部主管 HEAD OF VIDEO</div>
       <p class="exp-desc">
@@ -221,13 +184,12 @@
         執行服飾與家居品牌之「形象宣傳片＋社群短影音」雙軌產出模型。並將 Podcast 內容轉譯為具視覺記憶點的短影音，結合高效剪輯策略，擴展跨平台傳播效益並實質強化品牌識別轉換力。
       </p>
     </div>
-
   </div>
 
   <div style="grid-column: 1 / -1;">
     <div class="bottom-name-row">
+      <h1 class="massive-title">ZACK</h1>
       <h1 class="massive-title">CHU</h1>
-      <h1 class="massive-title">JIAPENG</h1>
     </div>
     <div class="bottom-info-row">
       <div class="info-left">
@@ -246,14 +208,13 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <script>
   document.body.addEventListener('click', function() {
     const audio = document.getElementById('bg-audio');
     if (audio.paused) {
-      audio.play().catch(e => console.log("等待互動"));
+      audio.play().catch(e => console.log("等待互動解鎖音樂"));
     }
   }, { once: true });
 </script>
